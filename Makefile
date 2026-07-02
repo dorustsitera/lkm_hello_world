@@ -157,12 +157,35 @@ endif
 nsdeps:
 	@echo "--- nsdeps (namespace dependencies resolution; for possibly importing ns's) ---"
 	make -C $(KDIR) M=$(PWD) nsdeps
+
+# --------------------My clean targets--------------------------------
+
+#--- Fichiers générés par le build Kbuild (explicitement listés pour ne
+# jamais toucher compile_commands.json / .clangd, utilisés par clangd/LSP)
+KBUILD_GENERATED := \
+	${FNAME_C}.o \
+	.${FNAME_C}.o.cmd \
+	${FNAME_C}.ko \
+	.${FNAME_C}.ko.cmd \
+	${FNAME_C}.mod \
+	${FNAME_C}.mod.c \
+	.${FNAME_C}.mod.cmd \
+	${FNAME_C}.mod.o \
+	.${FNAME_C}.mod.o.cmd \
+	.module-common.o \
+	..module-common.o.cmd \
+	modules.order \
+	.modules.order.cmd \
+	Module.symvers \
+	.Module.symvers.cmd \
+	.cache.mk
+
 clean:
 	@echo
-	@echo "--- cleaning ---"
+	@echo "--- cleaning (compile_commands.json et .clangd préservés) ---"
 	@echo
-	make -C $(KDIR) M=$(PWD) clean
-# from 'indent'; comment out if you want the backup kept
+	rm -f $(KBUILD_GENERATED)
+	rm -rf .tmp_versions
 	rm -f *~ *.dtb
 
 # Any usermode programs to build? Insert the build target(s) below
