@@ -1,0 +1,8 @@
+CompileFlags:
+  Add:
+    - -Wno-unknown-warning-option
+  CompilationDatabase: .
+Diagnostics:
+  UnusedIncludes: None   # le kernel a plein d'includes "inutilisés" volontaires
+Index:
+  Background: Build
