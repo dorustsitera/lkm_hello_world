@@ -23,4 +23,5 @@ modules.order
 *.swp
 *~
 .clangd/
+.clang-format
 compile_commands.json
